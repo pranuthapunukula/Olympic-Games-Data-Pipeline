@@ -1,13 +1,17 @@
 # Olympic-Games-Data-Pipeline
 
-Introduction
+**Introduction**
 __________________________________________________________________
 
 The Olympic Games are the most watched sporting event in the world, drawing billions of viewers annually. The objective of our project was to aid the Olympic CTO and their staff find the country that scored the most points, the country with the most gold medals, the team with the most medals, and finally the athlete with the most medals in both All-Time and Last 5 Games categories. With this data we could determine which countries, teams, and athletes are the most dominant and if in recent years there has been a shift in the most dominant countries, teams, and athletes.
   
 To accomplish this goal we first had to trace out the data provided and make sense of it. Once we had established an ER diagram of the data we created our staging tables and ingested the data. Our next step was to take the ER model and transform it into a Star Schema model for easier analysis. Once that was accomplished we used the Star Schema to create data products to answer the CTO’s questions. During that time we decided to provide an extra bit of information, how many medals every country had earned overall. With the data products made, all we needed to do was create some effective visualizations and write our report to the CTO.
 
-Data Ingestion
+![ezgif com-gif-maker (2)](https://user-images.githubusercontent.com/51467244/222836307-ccfd3232-3a44-498e-9839-18a23f52f6dd.gif)
+
+
+
+**Data Ingestion**
 __________________________________________________________________
 
 - Documentation for source data
@@ -17,7 +21,9 @@ __________________________________________________________________
 - Load script with \copy commands
 
 
-Data Transformation
+
+
+**Data Transformation**
 __________________________________________________________________
 
 - Transformation to Star Schema
@@ -27,6 +33,9 @@ The project required us to find the values of points, gold medals, and all medal
 We chose the olympic events, athletes, olympiad, teams, and olympic committee tables to use as dimensions all linking back to our fact table called result_facts along with each row’s designated medal score. Similarly to medal, we also decided to drop the sport variable because it was not relevant to the questions we needed to answer and would have to be connected by a many to many relationship creating the need for a new table. 
 
 - dbt models transforming to star schema
+<img width="679" alt="Screen Shot 2023-03-03 at 3 52 08 PM" src="https://user-images.githubusercontent.com/51467244/222836518-62145481-f889-4ed5-bbb9-4022100d2bae.png">
+
+
 
 Transformation to Data Products
 __________________________________________________________________
@@ -42,7 +51,9 @@ __________________________________________________________________
 dbt model files to create and load the data into data product(s)
 
 
-Data Analysis and Visualization
+
+
+**Data Analysis and Visualization**
 __________________________________________________________________
 
 We used bar graphs to answer the questions that asked for the top teams, athletes, and countries because we felt that it was the clearest way to describe the relationship between the categorical variable of the team, player, or country and the numerical variable of the number of medals earned. The number of medals was counted by using the sum metric. We had considered pie graphs for these but decided that it only made sense if we showed the whole. Because of how we choose to limit the data to only top performers for easier readability, bar graphs made more sense for showing off the discrete data points and comparing them against each other. 
@@ -52,9 +63,14 @@ We tended to use pie graphs in addition to the country visualizations because it
 
 We chose an incrementally fading color scheme to emphasize how concentrated the scores are in certain regions, particularly for the global maps for the total medals for each country, total gold medals for each country, and top scoring countries in the last five games and the pie chart for the top country scores overall. We usually used color schemes with varied colors rather than a gradient to further highlight the difference between the thresholds of the different values.
 
+<img width="547" alt="Screen Shot 2023-03-03 at 3 51 28 PM" src="https://user-images.githubusercontent.com/51467244/222836419-140402b9-e4bd-41dd-80e4-307fc8e2b820.png">
 
-Reflections and Challenges Addressed
+
+
+**Reflections and Challenges Addressed**
 __________________________________________________________________
 
 Overall, this project gave us the opportunity to implement a data pipeline from beginning to end. We gained an understanding of how to ingest data from multiple sources, make data products from them, and then visualize them using graphs to address stakeholder needs. We realized how practical and well-built Superset and Jupyter Notebook were, and how much more difficult this project would be if we used less intuitive tools. The dataset given to us also helped us learn that sometimes just because we are given a table, in this case the sport table, it doesn’t necessarily have value to us as a dimension because it increases redundancy, reducing the efficiency of our pipeline. When we started to consider the specific goals we were required to meet when creating the pipeline, we came across identification and categorizing issues. One issue was that one of our datasets had thousands of duplicate keys, so we had to consider why the relationships between tables were creating overlap and whether the duplicates needed to be removed or if they were truly different data points. When we realized they were different data points, we learned how to troubleshoot faulty tables and how to produce unique keys to replace defunct keys. Also we realized just how ambiguous data could be, and had to ask ourselves things that required further research, like if we should count USSR and Russia as two separate national committees. This made us think that, as data engineers, having the skills to objectively view data in context and problem solve is essential. We are proud of our ability to problem solve as a team when the data wasn’t conducive to our needs and to take advantage of optimizing our workload when the dataset was a better fit for our needs.
+
+<img width="645" alt="Screen Shot 2023-03-03 at 3 51 48 PM" src="https://user-images.githubusercontent.com/51467244/222836470-1914a1fb-1f5f-4ec6-a5ea-c0616cc582b7.png">
 
